@@ -3,7 +3,7 @@ import * as ort from "onnxruntime-web";
 import { forward } from "./forward";
 import { getTokenizer } from "./tokenizer";
 import { OUTPUT_MAX_LEN } from "../var/constants";
-import { sampleLogitsGreedily } from "./sampling";
+import { greedy } from "./sampling";
 
 export const translate = async (input: string) => {
   const tokenizer = await getTokenizer();
@@ -32,7 +32,7 @@ export const translate = async (input: string) => {
     encoderOutputs = hiddenStates;
     pastKeyValues = pkvs;
 
-    const outputId = sampleLogitsGreedily(logits);
+    const outputId = greedy(logits);
 
     outputIds.push(outputId as unknown as bigint);
 

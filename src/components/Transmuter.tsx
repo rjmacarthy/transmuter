@@ -45,10 +45,6 @@ export const Transmuter = () => {
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
       <Card p={3} minW={400} maxW={400}>
-        <CardHeader>
-          <Text>Transmuter</Text>
-        </CardHeader>
-        <Divider />
         <Select
           mt={2}
           value={from}
@@ -70,7 +66,7 @@ export const Transmuter = () => {
           placeholder="Translate to"
           onChange={(e) => {
             const val = _.get(e, "target.value", "");
-            setFrom(val);
+            setTo(val);
           }}
         >
           {_.filter(availableLanguges, (lang) => lang !== from).map((lang) => (
@@ -87,7 +83,7 @@ export const Transmuter = () => {
           Translate
         </Button>
         {loading ? (
-          <Skeleton height="20px" mt={2} />
+          <Skeleton mt={2} height="40px" />
         ) : (
           <Text
             as="pre"

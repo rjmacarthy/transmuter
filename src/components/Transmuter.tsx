@@ -1,6 +1,8 @@
 import {
   Button,
   Card,
+  CardHeader,
+  Divider,
   Flex,
   Select,
   Skeleton,
@@ -11,20 +13,25 @@ import _ from "lodash";
 import React from "react";
 import { translate } from "../transumter/translate";
 
-import { availableLanguges, OUTPUT_MAX_LEN } from "../var/constants";
+import {
+  availableLanguges,
+  initialText,
+  OUTPUT_MAX_LEN,
+} from "../var/constants";
 
 export const Transmuter = () => {
-  const [value, setValue] = React.useState<string>("");
+  const [value, setValue] = React.useState<string>(initialText);
   const [result, setResult] = React.useState<string>("");
   const [from, setFrom] = React.useState<string>("English");
   const [to, setTo] = React.useState<string>("German");
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const handleChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > OUTPUT_MAX_LEN) {
+    const val: string = _.get(e, "target.value", "");
+    if (_.size(val) > OUTPUT_MAX_LEN) {
       return;
     }
-    setValue(e.target.value);
+    setValue(val);
   };
 
   const handleTranslate = async () => {
@@ -39,11 +46,17 @@ export const Transmuter = () => {
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
       <Card p={3} minW={400} maxW={400}>
+        <CardHeader>
+          <Text>Transmuter</Text>
+        </CardHeader>
+        <Divider />
         <Select
+          mt={2}
           value={from}
           placeholder="Translate from"
           onChange={(e) => {
-            setFrom(e.target.value);
+            const val = _.get(e, "target.value", "");
+            setFrom(val);
           }}
         >
           {availableLanguges.map((lang) => (
@@ -57,7 +70,8 @@ export const Transmuter = () => {
           mt={2}
           placeholder="Translate to"
           onChange={(e) => {
-            setTo(e.target.value);
+            const val = _.get(e, "target.value", "");
+            setFrom(val);
           }}
         >
           {_.filter(availableLanguges, (lang) => lang !== from).map((lang) => (
@@ -66,7 +80,7 @@ export const Transmuter = () => {
             </option>
           ))}
         </Select>
-        <Textarea onChange={handleChange} mt={2} />
+        <Textarea onChange={handleChange} mt={2} value={value} rows={5} />
         <Text as="small">
           {value.length} / {OUTPUT_MAX_LEN}
         </Text>

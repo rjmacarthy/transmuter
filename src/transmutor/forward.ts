@@ -1,4 +1,4 @@
-import * as ort from 'onnxruntime-web';
+import * as ort from "onnxruntime-web";
 
 import { Layers } from "./layers";
 import { getPastKeyValues } from "./utils";
@@ -9,7 +9,7 @@ export const forward = async (
   inputTokenIds: string | any[] | readonly number[] | BigInt64Array,
   decoderInputIds: bigint[],
   encoderOutputs: any,
-  pastKeyValues: { [x: string]: any; }
+  pastKeyValues: { [x: string]: any }
 ) => {
   const inputIdLength = inputTokenIds.length;
 
@@ -19,10 +19,11 @@ export const forward = async (
 
   const { encoder, decoder, initDecoder } = layers.getLayers();
 
-  const inputTensor = new ort.Tensor("int64", inputTokenIds as readonly number[], [
-    1,
-    inputIdLength,
-  ]);
+  const inputTensor = new ort.Tensor(
+    "int64",
+    inputTokenIds as readonly number[],
+    [1, inputIdLength]
+  );
 
   const attentionMaskTensor = new ort.Tensor(
     "int64",
@@ -55,7 +56,10 @@ export const forward = async (
     return {
       logits: initDecoderOutput.logits,
       hiddenStates: encoderOutput.hidden_states,
-      pkvs: getPastKeyValues(initDecoderOutput, initDecoder.outputNames.slice(1)),
+      pkvs: getPastKeyValues(
+        initDecoderOutput,
+        initDecoder.outputNames.slice(1)
+      ),
     };
   }
 

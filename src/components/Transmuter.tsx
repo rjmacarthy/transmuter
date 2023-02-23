@@ -37,7 +37,6 @@ export const Transmuter = () => {
   const handleTranslate = async () => {
     setLoading(true);
     const prompt = `Translate ${from} to ${to}: ${value}`;
-    console.log(prompt);
     const result = await translate(prompt);
     setResult(result);
     setLoading(false);

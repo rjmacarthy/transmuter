@@ -38,7 +38,7 @@ export const Transmuter = () => {
 
   return (
     <Flex justifyContent="center" alignItems="center" height="100vh">
-      <Card p={3} minWidth="400px">
+      <Card p={3} minW={400} maxW={400}>
         <Select
           value={from}
           placeholder="Translate from"

@@ -1,11 +1,14 @@
 use std::str::FromStr;
 
+#[cfg(feature = "wee_alloc")]
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 use wasm_bindgen::prelude::*;
 use tokenizers::tokenizer::{Tokenizer, Encoding};
 use js_sys;
 
 #[wasm_bindgen]
-pub struct Transumtor {
+pub struct Transumter {
     tokenizer: Tokenizer,
     _encoding: Encoding,
 }
@@ -16,10 +19,10 @@ pub struct WEncoding {
 }
 
 #[wasm_bindgen]
-impl Transumtor {
+impl Transumter {
     #[wasm_bindgen(constructor)]
-    pub fn from_pretrained (json: String) -> Transumtor {
-        Transumtor {
+    pub fn new(json: String) -> Transumter {
+        Transumter {
             _encoding: Encoding::default(),
             tokenizer: Tokenizer::from_str(json.as_str()).unwrap(),
         }

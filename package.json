@@ -1,10 +1,10 @@
 {
   "author": "rjmacarthy",
-  "name": "transumtor",
+  "name": "transumter",
   "version": "0.1.0",
   "scripts": {
     "build": "rimraf dist pkg && webpack",
-    "start": "rimraf dist pkg && webpack-dev-server",
+    "start": "rimraf dist pkg && webpack-dev-server --open",
     "test": "cargo test && wasm-pack test --headless"
   },
   "devDependencies": {
@@ -18,7 +18,11 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@types/lodash": "^4.14.191",
+    "framer-motion": "^9.1.6",
     "lodash": "^4.17.21",
     "onnxruntime-node": "^1.14.0",
     "onnxruntime-web": "^1.14.0",

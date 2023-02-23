@@ -1,5 +1,5 @@
 [package]
-name = "transmutor"
+name = "transumter"
 description = "Hugging face tokeniser binding for wasm."
 version = "0.1.0"
 authors = ["rjmacarthy"]

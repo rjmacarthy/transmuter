@@ -1,12 +1,18 @@
 import * as ort from "onnxruntime-web";
 
 import { forward } from "./forward";
-import { getTokenizer } from "./tokenizer";
+import { TransmuterTokenizer } from "./tokenizer";
 import { OUTPUT_MAX_LEN } from "../var/constants";
 import { greedy } from "./sampling";
 
+const transmuter = new TransmuterTokenizer();
+
 export const translate = async (input: string) => {
-  const tokenizer = await getTokenizer();
+  if (!transmuter.ready) {
+    await transmuter.init();
+  }
+
+  const tokenizer = transmuter.tokenizer;
   const encoding = tokenizer.encode(input, true);
 
   let outputIds = [0n];

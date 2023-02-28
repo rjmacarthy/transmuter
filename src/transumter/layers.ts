@@ -1,4 +1,5 @@
 import * as ort from "onnxruntime-web";
+import { MODEL_NAME } from "../var/constants";
 
 export class Layers {
   encoder: any;
@@ -27,15 +28,15 @@ export class Layers {
     };
 
     const encoder = await (
-      await fetch("t5-small-encoder-quantized.onnx", { cache: "force-cache" })
+      await fetch(`${MODEL_NAME}-encoder.onnx`, { cache: "force-cache" })
     ).arrayBuffer();
 
     const decoder = await (
-      await fetch("t5-small-decoder-quantized.onnx", { cache: "force-cache" })
+      await fetch(`${MODEL_NAME}-decoder.onnx`, { cache: "force-cache" })
     ).arrayBuffer();
 
     const initDecoder = await (
-      await fetch("t5-small-init-decoder-quantized.onnx", {
+      await fetch(`${MODEL_NAME}-init-decoder.onnx`, {
         cache: "force-cache",
       })
     ).arrayBuffer();
